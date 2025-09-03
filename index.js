@@ -1,14 +1,15 @@
 import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
+import dotenv from "dotenv";
+dotenv.config();
 const app = express()
-const port = 8222
-const mongoURL = "mongodb://localhost:27017/MERN_Projects"
+
 
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(mongoURL, {
+mongoose.connect(process.env.mongoURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
@@ -77,4 +78,4 @@ app.post('/', async (req, res) => {
         return res.status(500).json({ message: "Internal server error, post failed!!!", success: false });
     }
 })
-app.listen(port)
+app.listen(process.env.PORT)
